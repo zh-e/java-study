@@ -1,6 +1,7 @@
 package com.zhe.javabase.algorithms;
 
 /**
+ * 八皇后问题
  * @author zhangzhe
  */
 public class EightQueenSolution {

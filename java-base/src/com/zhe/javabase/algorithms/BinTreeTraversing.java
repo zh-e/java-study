@@ -16,21 +16,24 @@ public class BinTreeTraversing {
         BinTreeTraversing bt = new BinTreeTraversing();
         TreeNode node = bt.getTreeNode();
         //层次遍历
-//        layerTraver(node);
-//        System.out.println();
-//        //递归前序遍历
-//        preOrderTraversal(node);
-//        System.out.println();
-//        //非递归前序遍历
-//        preOrderTraversal2(node);
-//        System.out.println();
+        layerTraver(node);
+        System.out.println();
+        //递归前序遍历
+        preOrderTraversal(node);
+        System.out.println();
+        //非递归前序遍历
+        preOrderTraversal2(node);
+        System.out.println();
         //递归中序遍历
         inOrderTraversal(node);
         System.out.println();
         inOrderTraversal2(node);
-//        //递归后序遍历
-//        postOrderTraversal(node);
-
+        System.out.println();
+        //递归后序遍历
+        postOrderTraversal(node);
+        System.out.println();
+        //非递归后序遍历
+        postOrderTraversal2(node);
     }
 
     /**
@@ -127,7 +130,26 @@ public class BinTreeTraversing {
      */
     private static void postOrderTraversal2(TreeNode node) {
         Stack<TreeNode> stack = new Stack<>();
+        TreeNode prior = null;
 
+        while (node != null || !stack.empty()) {
+            if(node != null) {
+                stack.push(node);
+                node = node.leftNode;
+            } else {
+                node = stack.pop();
+                if(node.rightNode == null || node.rightNode == prior) {
+                    System.out.print(node.value + "    ");
+                    prior = node;
+                    node = null;
+                } else {
+                    stack.push(node);
+                    node = node.rightNode;
+                    stack.push(node);
+                    node = node.leftNode;
+                }
+            }
+        }
 
     }
 

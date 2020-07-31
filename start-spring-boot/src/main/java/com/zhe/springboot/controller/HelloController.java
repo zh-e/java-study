@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/hello")
 public class HelloController {
 
-    @CrossOrigin
     @GetMapping("/str")
     public String hello() {
         return "hello str";

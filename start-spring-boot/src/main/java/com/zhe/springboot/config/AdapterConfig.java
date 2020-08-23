@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * @author zhangzhe
@@ -18,6 +17,7 @@ public class AdapterConfig implements WebMvcConfigurer {
         return new SessionKeyValidateHandle();
     }
 
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(sessionKeyValidateHandle());
     }

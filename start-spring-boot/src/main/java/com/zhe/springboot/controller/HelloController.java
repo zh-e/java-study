@@ -1,7 +1,12 @@
 package com.zhe.springboot.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.zhe.springboot.annotation.SessionKeyValidate;
+import com.zhe.springboot.bean.Table;
+import com.zhe.springboot.feature.FeatureService;
+import com.zhe.springboot.feature.JoinFilterContext;
 import com.zhe.springboot.server.RedisServer;
+import com.zhe.springboot.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +23,25 @@ public class HelloController {
     @Autowired
     private RedisServer redisServer;
 
+    @Autowired
+    private FeatureService featureService;
+
     @GetMapping("/str")
     public String hello() {
-        return "hello str";
+
+        JoinFilterContext joinFilterContext = JoinFilterContext.builder()
+                .gameType(1111)
+                .teamId(11)
+                .subType(1)
+                .uid("222").build();
+
+        featureService.filter(joinFilterContext);
+
+        if (joinFilterContext.isFilter()) {
+            return "111111";
+        } else {
+            return "22222";
+        }
     }
 
     @GetMapping("/test-session")
@@ -44,9 +65,34 @@ public class HelloController {
 
     }
 
-    @GetMapping("/redisGet")
-    public String redisGet(@RequestParam String key) {
-        return redisServer.get(key);
+    @GetMapping("/test")
+    public String test(@RequestParam String key) {
+        Table table = new Table();
+
+        table.setRoomId("111");
+        table.setName("jjj");
+        table.setSubType(0);
+        table.setMatchId("uuuuuu");
+        table.setPlayers("uuiioo99943");
+        table.setStage(1);
+        table.setTableStatus(9);
+        table.setTableCards("jjioo");
+        table.setActionSid("111");
+        table.setTimeOut("3rwqr");
+        table.setButtonSid("1221");
+        table.setRound("21");
+        table.setStartTime(System.currentTimeMillis());
+        table.setCountDown(System.currentTimeMillis());
+
+        Map<String, String> map = JsonUtil.fromJson(JsonUtil.toJson(table), new TypeReference<Map<String, String>>(){});
+
+        redisServer.hmset(key, map);
+
+        Map<String, String> res = redisServer.hgetall(key);
+
+        Table table1 = JsonUtil.fromJson(JsonUtil.toJson(res), Table.class);
+
+        return JsonUtil.toJson(table1);
     }
 
 }

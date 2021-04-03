@@ -1,7 +1,7 @@
 package com.zhe.springboot.controller;
 
+import com.google.common.collect.Lists;
 import com.zhe.springboot.server.strategy.RouterService;
-import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +20,7 @@ public class TestController {
     @GetMapping("/strategy")
     public String testStrategy(@RequestParam String p1, @RequestParam String p2) {
         List<String> param = Lists.newArrayList(p1, p2);
+
         return routerService.applyStrategy(param);
     }
 

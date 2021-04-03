@@ -7,9 +7,11 @@
 *.tar.gz
 *.rar
 *.iml
+*.hprof*
 
 .idea/
-
 out/
 target/
+.DS_Store
+
 

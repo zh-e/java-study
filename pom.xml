@@ -11,6 +11,7 @@
     <modules>
         <module>java-base</module>
         <module>start-spring-boot</module>
+        <module>java-common-util</module>
     </modules>
 
     <parent>

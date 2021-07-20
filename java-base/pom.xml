@@ -25,6 +25,12 @@
             <artifactId>jmh-generator-annprocess</artifactId>
             <version>1.27</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.xxtea</groupId>
+            <artifactId>xxtea-java</artifactId>
+            <version>1.0.5</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -1,6 +1,6 @@
 package com.zhe.javabase;
 /**
- * 
+ *
  * The input is a text stream of multiple lines. If you
  * are not familiar with the concept of i/o stream you may
  * search it on the web.
@@ -17,7 +17,7 @@ package com.zhe.javabase;
  * <p>
  * Here is an example of three lines of input text:
  * :LSu9f*&;23lk45
- * 0ue u987*6OIIe
+ * 0ue u987*6O IIe
  * 765^*^%$*^&(*354
  * And the ouput stream should also be three lines:
  * LSu
@@ -110,43 +110,28 @@ class Processor {
             }
 
             int i = 0, j = 0;
-            boolean flag = true, wordFlag = false;
-            StringBuilder sb = new StringBuilder();
-            while (i < str.length()) {
+            String res = "";
+            while (i <= str.length()) {
+                if (i == str.length()) {
+                    res = getLongestString(res, str.substring(j, i));
+                    break;
+                }
+
                 char c = str.charAt(i);
-
-                if (!flag && c != ' ') {
+                if ((c == ' ') || (c - 'A' >= 0 && c - 'Z' <= 0) || (c - 'a' >= 0 && c - 'z' <= 0)) {
+                    i++;
+                } else {
+                    res = getLongestString(res, str.substring(j, i));
                     i++;
                     j = i;
-                    continue;
                 }
-
-                if (c == ' ') {
-                    i++;
-                    sb.append(str, j, i);
-                    j = i;
-                    flag = true;
-                    continue;
-                }
-
-                if ((c - 'A' >= 0 && c - 'Z' <= 0) || (c - 'a' >= 0 && c - 'z' <= 0)) {
-                    i++;
-                    wordFlag = true;
-                    continue;
-                }
-
-                if (wordFlag) {
-                    flag = false;
-                    wordFlag = false;
-                }
-                sb.append(str, j, i);
-                i++;
-                j = i;
             }
-
-            outstream.writeLine(sb.toString());
+            outstream.writeLine(res);
         }
+    }
 
+    private String getLongestString(String str1, String str2) {
+        return str1.length() >= str2.length() ? str1 : str2;
     }
 
     private InStream instream = null;
@@ -208,7 +193,9 @@ public class ShowMeBug {
     @Test
     public void testProcessor() throws IOException {
         // TASK 1: PLEASE ADD INPUT LINES HERE AS TESTS.
-        String UnittestCases = ":LSu9f*&;23l k45";
+        String UnittestCases = ":LSu9f*&;23lk45\n" +
+                " * 0ue u987*6OIIe\n" +
+                " * 765^*^%$*^&(*354";
 
         InStream instream = new MockInStream(UnittestCases);
         OutStream outstream = new MockOutStream();

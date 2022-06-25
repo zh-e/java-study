@@ -1,8 +1,6 @@
 package com.zhe.javabase;
 /**
- * Copyright (c) 2022 BodyPark Co. 版权所有 请勿泄题
- * 后续面试会问相关问题，所以请勿借助他人
- * <p>
+ * 
  * The input is a text stream of multiple lines. If you
  * are not familiar with the concept of i/o stream you may
  * search it on the web.
